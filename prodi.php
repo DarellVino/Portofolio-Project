@@ -1,168 +1,81 @@
 <?php
-// 1. Jalankan session untuk mengecek login
 session_start();
+include "koneksi.php";
 
-// 2. Cek apakah user sudah login
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    header("location: index.php?p=Silahkan login terlebih dahulu!");
-    exit;
+// Cek login
+if(!isset($_SESSION['login']) || $_SESSION['login']!=true){
+    header("location: index.php?p=Silahkan login terlebih dahulu");
+    exit();
 }
 
-// 3. Panggil koneksi database
-include "koneksi.php";
+// Logika Pencarian
+$cari = "";
+if(isset($_GET['cari'])){
+    $cari = $_GET['cari'];
+    // Query jika user melakukan pencarian (mencari berdasarkan kode atau nama prodi)
+    $query = mysqli_query($koneksi, "SELECT * FROM prodi WHERE kd_prodi LIKE '%$cari%' OR nama_prodi LIKE '%$cari%'");
+} else {
+    // Query standar jika tidak ada pencarian
+    $query = mysqli_query($koneksi, "SELECT * FROM prodi");
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Prodi</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-        }
-
-        /* Navigasi Merah sesuai Gambar F. CRUD Prodi */
-        .custom-navbar {
-            background-color: #c11b1b !important;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .hamburger-icon {
-            color: white !important;
-            font-size: 24px;
-            margin-right: 20px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .nav-link-custom {
-            color: white !important;
-            margin-right: 20px;
-            font-size: 16px;
-            text-decoration: none;
-        }
-
-        .nav-link-custom.active {
-            font-weight: bold;
-        }
-
-        .nav-right a {
-            color: white !important;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        /* Kotak Pembungkus Utama */
-        .box-konten {
-            border: 1px solid #767676;
-            margin: 30px auto;
-            max-width: 95%;
-            background: #fff;
-        }
-
-        .box-title {
-            padding: 15px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .box-body {
-            padding: 20px;
-            border-top: 1px solid #767676;
-        }
-
-        /* Tombol Tambah Data Hijau Presisi */
-        .btn-tambah {
-            background-color: #41b353 !important;
-            color: white !important;
-            border: none;
-            border-radius: 0;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 25px;
-            text-decoration: none;
-        }
-
-        .btn-tambah:hover {
-            background-color: #369a45 !important;
-            text-decoration: none;
-        }
-
-        /* Tabel Tanpa Garis Vertikal (Sesuai Gambar Modul) */
-        .table-custom {
-            width: 100%;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .table-custom th {
-            font-weight: bold;
-            padding: 12px 8px;
-            border-bottom: 1px solid #767676;
-            text-align: left;
-        }
-
-        .table-custom td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #eaeaea;
-            vertical-align: middle;
-        }
-
-        .action-links a {
-            color: #0000ee;
-            text-decoration: underline;
-        }
-
-        .action-links a:hover {
-            color: #0000aa;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
+    <?php include "navigasi.php"; ?>
 
-    <div class="custom-navbar">
-        <div class="nav-left">
-            <a href="#" class="hamburger-icon">☰</a>
-            <a href="home.php" class="nav-link-custom">Home</a>
-            <a href="mahasiswa.php" class="nav-link-custom">Mahasiswa</a>
-            <a href="prodi.php" class="nav-link-custom active">Prodi</a>
-        </div>
-        <div class="nav-right">
-            <a href="logout.php">(<?php echo $_SESSION['user']; ?>) Logout</a>
+    <div id="main">
+        <div class="container">
+            <h2>Data Program Studi</h2>
+            <hr><br>
+
+            <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <a href="tambah_prodi.php" class="submit" style="text-decoration: none; padding: 8px 15px; background-color: #2ecc71; color: white; border-radius: 4px; font-weight: bold;">+ Tambah Prodi</a>
+                
+                <form method="GET" action="">
+                    <input type="text" name="cari" value="<?php echo $cari; ?>" placeholder="Cari Kode / Nama Prodi..." style="padding: 6px 10px; width: 220px; border: 1px solid #ccc; border-radius: 4px;">
+                    <button type="submit" style="padding: 6px 12px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Cari</button>
+                    <?php if($cari != "") { ?>
+                        <a href="prodi.php" style="padding: 6px 12px; background-color: #95a5a6; color: white; text-decoration: none; border-radius: 4px; font-size: 13px; margin-left: 5px;">Reset</a>
+                    <?php } ?>
+                </form>
+            </div>
+
+            <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr style="background-color: #f2f2f2;">
+                    <th>No</th>
+                    <th>Kode Prodi</th>
+                    <th>Nama Prodi</th>
+                    <th>Aksi</th>
+                </tr>
+                <?php 
+                $no = 1;
+                if(mysqli_num_rows($query) > 0) {
+                    while($data = mysqli_fetch_assoc($query)){ 
+                ?>
+                <tr>
+                    <td align="center"><?php echo $no++; ?></td>
+                    <td><?php echo $data['kd_prodi']; ?></td>
+                    <td><?php echo $data['nama_prodi']; ?></td>
+                    <td align="center">
+                        <a href="edit_prodi.php?id_prodi=<?php echo $data['kd_prodi']; ?>">Edit</a> | 
+                        <a href="hapus_prodi.php?id_prodi=<?php echo $data['kd_prodi']; ?>" onclick="return confirm('Yakin hapus data ini?')">Hapus</a>
+                    </td>
+                </tr>
+                <?php 
+                    }
+                } else {
+                    echo "<tr><td colspan='4' align='center' style='color: red; padding: 15px;'>Data tidak ditemukan!</td></tr>";
+                }
+                ?>
+            </table>
         </div>
     </div>
-
-    <div class="container-fluid">
-        <div class="box-konten">
-            <div class="box-title">Data Prodi</div>
-
-            <div class="box-body">
-                <a href="tambah_prodi.php" class="btn-tambah">TAMBAH DATA PRODI</a>
-
-                <table class="table-custom">
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Kode Prodi</th>
-                            <th style="width: 50%;">Nama Prodi</th>
-                            <th style="width: 25%;">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?
+</body>
+</html>

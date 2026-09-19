@@ -1,14 +1,13 @@
 <?php
 
-$koneksi = mysqli_connect(
-    "localhost",
-    "root",
-    "",
-    "vino_penilaian"
-);
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "vino_penilaian";
+
+$koneksi = mysqli_connect($host, $username, $password, $database);
 
 if (!$koneksi) {
-    die("koneksi gagal: " . mysqli_connect_error());
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
-
 ?>

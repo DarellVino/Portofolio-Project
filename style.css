@@ -1,100 +1,164 @@
-/* style.css */
-
-body {
-
-    font-family: Verdana;
-    font-size: 14px;
-    background-color: #F7F7F7;
-
+body
+{
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+    background-image: url('tg.jpg');
+    background-size: cover;
 }
 
-input,
-button,
-select {
-
+input, button
+{
     padding: 7px;
-
 }
-
-button {
-
+button
+{
     cursor: pointer;
-
 }
-
-.container {
-
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
-    padding: 10px;
-    width: 400px;
-    margin: 0 auto;
-
-}
-
-.form-control {
-
-    margin-bottom: 10px;
-    width: 100%;
-
-}
-
-.form-control input {
-
-    width: 380px;
-
-}
-
-.form-control button {
-
-    width: 397px;
-
-}
-
-.pesan {
-
-    color: #FFFFFF;
-    text-align: center;
-    padding: 7px;
-    background-color: #FF0000;
-    font-weight: bold;
-
-}
-
-.menu {
-
-    margin-bottom: 15px;
-
-}
-
-.menu a {
-
-    text-decoration: none;
-    background: #3498db;
+.tambah{
+    background-color: #4CAF50;
+    border: none;
     color: white;
-    padding: 8px 12px;
-
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
-
-table {
-
+.tambah:hover{
+    background-color: green;
+}
+table{
     border-collapse: collapse;
     width: 100%;
-
 }
 
-table,
-th,
-td {
-
-    border: 1px solid black;
-    padding: 10px;
-
+th,td{
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid#ddd;
 }
 
-th {
-
-    background: #3498db;
+tr:hover{
+    background-color: #f5f5f5;
+}
+input[type=text], input[type=tel], input[type=email]{
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid#ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+.submit{
+    background-color: #008CBA;
+    border: none;
     color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.batal{
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.textarea{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid#ccc;
+    border-radius: 4px;
+    background-color: white;
+    resize: none;
+}
+.container{
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    padding: 10px;
+    width: 900px;
+    margin: 0 auto;
+}
+.container .logout{}
+.navbar{
+    background-color: #c7252e;
+    overflow: hidden;
+    height: 63px;
+}
+.navbar a{
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
 
+.navbar ul{
+    margin: 8px 0 0 0;
+    list-style: none;
+}
+.navbar a:hover{
+    background-color: #ddd;
+    color: #000;
+}
+
+.side-nav{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    opacity: 0.9;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+.side-nav a{
+    padding: 10px 10px 10px 30px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #ccc;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-nav a:hover{
+    color: #fff;
+}
+
+.side-nav .btn-close{
+    position: absolute;
+    top: 0;
+    right: 22px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.logout{
+    float: right;
+    overflow: hidden;
+}
+
+#main{
+    transition: margin-left 0.5s;
+    padding: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+@media (max-width: 568px){
+    .navbar-nav{display: none}
 }
