@@ -1,28 +1,12 @@
 <?php
-session_start();
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-//panggil koneksi
-include "koneksi.php";
+if ($username == "admin" && $password == "12345") {
 
-//ambil data dari form
-$username = $_POST['user'];
-$password = $_POST['pass'];
+    setcookie("username", $username, time() + 3600);
 
-//enkripsi password dengan md5 (sesuai database)
-$password_md5 = md5($password);
-
-//query cek login
-$query = mysqli_query($koneksi, "SELECT * from pengguna where username='$username' and password='$password_md5'");
-
-//hitung jumlah data
-$cek = mysqli_num_rows($query);
-if($cek >0){
-    //jika login berhasil
-    $_SESSION['login'] = true;
-    $_SESSION['user'] = $username;
-    header("location: home.php"); // arahakan ke halaman home
-}else{
-    //jika gagal
-    header("location: index.php?p=Username atau Password salah");
+    header("Location: home.php");
+} else {
+    echo "Login gagal!";
 }
-?>
