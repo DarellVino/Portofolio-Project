@@ -1,0 +1,100 @@
+/* style.css */
+
+body {
+
+    font-family: Verdana;
+    font-size: 14px;
+    background-color: #F7F7F7;
+
+}
+
+input,
+button,
+select {
+
+    padding: 7px;
+
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+.container {
+
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 10px;
+    width: 400px;
+    margin: 0 auto;
+
+}
+
+.form-control {
+
+    margin-bottom: 10px;
+    width: 100%;
+
+}
+
+.form-control input {
+
+    width: 380px;
+
+}
+
+.form-control button {
+
+    width: 397px;
+
+}
+
+.pesan {
+
+    color: #FFFFFF;
+    text-align: center;
+    padding: 7px;
+    background-color: #FF0000;
+    font-weight: bold;
+
+}
+
+.menu {
+
+    margin-bottom: 15px;
+
+}
+
+.menu a {
+
+    text-decoration: none;
+    background: #3498db;
+    color: white;
+    padding: 8px 12px;
+
+}
+
+table {
+
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+table,
+th,
+td {
+
+    border: 1px solid black;
+    padding: 10px;
+
+}
+
+th {
+
+    background: #3498db;
+    color: white;
+
+}
